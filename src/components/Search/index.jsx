@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useCallback, useRef, useState } from "react";
+import debounce from "lodash.debounce";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchValue } from "../../redux/slices/filterSlice";
+import { setSearchValue } from "../../redux/slices";
 
 import styles from "./Search.module.scss";
 
 export const Search = () => {
+  const [value, setValue] = useState("");
   const searchValue = useSelector((state) => state.filter.searchValue);
   const dispatch = useDispatch();
+
+  const inputRef = useRef();
+
+  const onClickClear = () => {
+    dispatch(setSearchValue(""));
+    setValue("");
+    inputRef.current.focus();
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      dispatch(setSearchValue(str));
+    }, 1000),
+    []
+  );
+
+  const onChangeInput = (event) => {
+    setValue(event.target.value);
+    updateSearchValue(event.target.value);
+  };
 
   return (
     <div className={styles.root}>
@@ -26,15 +49,16 @@ export const Search = () => {
         <line x1="21" x2="16.65" y1="21" y2="16.65" />
       </svg>
       <input
-        value={searchValue}
-        onChange={(e) => dispatch(setSearchValue(e.target.value))}
+        ref={inputRef}
+        value={value}
+        onChange={(event) => onChangeInput(event)}
         className={styles.input}
         placeholder={"Поиск пиццы..."}
       />
       {searchValue && (
         <svg
           className={styles.clear}
-          onClick={() => dispatch(setSearchValue(""))}
+          onClick={onClickClear}
           height="48"
           viewBox="0 0 48 48"
           width="48"
