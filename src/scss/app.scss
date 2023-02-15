@@ -291,6 +291,11 @@ body {
           span {
             color: $gray-line;
           }
+
+          a {
+            color: $gray-line;
+            transition: color 0.1s linear;
+          }
         }
 
         svg {

@@ -1,20 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import qs from "qs";
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import qs from 'qs';
 
-import { setCurrentPage, setFilters } from "../redux/slices";
+import { setCurrentPage, setFilters } from '../redux/slices';
 
-import {
-  Categories,
-  PizzaBlock,
-  Sort,
-  Pagination,
-  Skeleton,
-  list,
-} from "../components";
-
+import { Categories, PizzaBlock, Sort, Pagination, Skeleton, list } from '../components';
 export const Home = () => {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
@@ -25,18 +17,16 @@ export const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
-  const { searchValue, categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter
-  );
+  const { searchValue, categoryId, sort, currentPage } = useSelector((state) => state.filter);
 
   const fakeArray = [1, 2, 3, 4, 5, 6];
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchingPizzas = () => {
     setIsLoading(true);
-    const sortBy = sort.sortProperty.replace("-", "");
-    const order = sort.sortProperty.includes("-") ? "asc" : "desc";
-    const search = searchValue ? `&search=${searchValue}` : "";
-    const category = categoryId > 0 ? `&category=${categoryId}` : "";
+    const sortBy = sort.sortProperty.replace('-', '');
+    const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
+    const search = searchValue ? `&search=${searchValue}` : '';
+    const category = categoryId > 0 ? `&category=${categoryId}` : '';
     const url = `https://63da2e8c2af48a60a7c709ce.mockapi.io/items?page=${currentPage}&limit=4${search}${category}&sortBy=${sortBy}&order=${order}`;
 
     axios.get(url).then((res) => {
@@ -76,7 +66,7 @@ export const Home = () => {
   }, [currentPage, searchValue, categoryId, sort]);
 
   return (
-    <div className={"container"}>
+    <div className={'container'}>
       <div className="content__top">
         <Categories />
         <Sort />

@@ -5,3 +5,5 @@ export * from "./PizzaBlock";
 export * from "./Search";
 export * from "./Pagination";
 export * from "./PizzaBlock/Skeleton";
+export * from "./CartItem";
+export * from "./CartEmpty";
