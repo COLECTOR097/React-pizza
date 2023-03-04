@@ -1,14 +1,18 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../redux/store";
 
 import { CartEmpty, CartItem } from "../components";
-import { clearItem } from "../redux/slices";
+import { clearItem, selectCart } from "../redux/slices";
 
-export const Cart = () => {
-  const dispatch = useDispatch();
-  const { totalPrice, items } = useSelector((state) => state.cart);
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+export const Cart: FC = () => {
+  const dispatch = useAppDispatch();
+  const { totalPrice, items } = useSelector(selectCart);
+  const totalCount = items.reduce(
+    (sum: number, item: any) => sum + item.count,
+    0
+  );
   const onClickClear = () => {
     dispatch(clearItem());
   };
@@ -95,7 +99,7 @@ export const Cart = () => {
           </div>
         </div>
         <div className="content__items">
-          {items.map((item) => (
+          {items.map((item: any) => (
             <CartItem key={item.id} {...item} />
           ))}
         </div>
@@ -111,8 +115,8 @@ export const Cart = () => {
             </span>
           </div>
           <div className="cart__bottom-buttons">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="button button--outline button--add go-back-btn"
             >
               <svg
@@ -131,8 +135,8 @@ export const Cart = () => {
                 />
               </svg>
 
-              <Link to={"/"}>Вернуться назад</Link>
-            </a>
+              <span>Вернуться назад</span>
+            </Link>
             <div className="button pay-btn">
               <span>Оплатить сейчас</span>
             </div>
