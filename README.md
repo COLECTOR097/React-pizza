@@ -12,15 +12,15 @@ The website is optimized for both desktop and mobile devices, and includes featu
 
 To run this project, follow these steps:
 
-1. Clone the repository to your computer:
+# 1. Clone the repository to your computer:
 
 ## git clone https://github.com/your-username/simple-pizza-market.git
 
-2. Install the dependencies:
+# 2. Install the dependencies:
 
 ## npm install
 
-3. Start the development server:
+# 3. Start the development server:
 
 ## npm start
 
