@@ -46,7 +46,7 @@ export const PizzaBlock: FC<PizzaBlockProps> = ({
 
   return (
     <div className={"pizza-block-wrapper"}>
-      <div className="pizza-block">
+      <div className={"pizza-block"}>
         <Link to={`/pizza/:${id}`}>
           <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
           <h4 className="pizza-block__title">{name}</h4>
